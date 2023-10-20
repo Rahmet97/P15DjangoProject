@@ -5,6 +5,7 @@ from .views import (
     about,
     feature,
     services,
+    abdugani,
     ShoppingCartTemplateView,
     IncrementCountAPIView,
     DecrementCountAPIView, ChangeCountAPIView, AddProductView, CommentView
@@ -18,6 +19,7 @@ urlpatterns = [
     path('about', about, name='about'),
     path('feature', feature, name='feature'),
     path('services', services, name='services'),
+    path('abdugani',abdugani,name=('abdugani')),
 
     # API
     path('increment', csrf_exempt(IncrementCountAPIView.as_view()), name='increment'),

@@ -189,3 +189,5 @@ def feature(request):
 
 def services(request):
     return render(request, 'service.html')
+def abdugani(request):
+    return render(request,'404.html')
