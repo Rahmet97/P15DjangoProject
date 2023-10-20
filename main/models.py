@@ -8,6 +8,7 @@ class Service(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     price = models.FloatField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Service'
@@ -30,3 +31,9 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         return f'{self.service.title} from {self.user.username}'
+
+
+class Comment(models.Model):
+    message = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -60,6 +60,7 @@
                         </div>
                         <a href="/contact" class="nav-item nav-link">Contact</a>
                         {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="/add-product">Add product</a>
                             <a href="" class="nav-item nav-link">{{ user.first_name }} {{ user.last_name }}</a>
                             <a href="/accounts/logout" class="nav-item nav-link">Logout</a>
                         {% else %}

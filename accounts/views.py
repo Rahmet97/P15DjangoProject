@@ -57,7 +57,7 @@ class RegisterView(View):
                     password=hashers.make_password(password1)
                 )
                 user.save()
-                return redirect('/')
+                return redirect('/accounts/login')
         else:
             messages.error(request, 'Passwords are not same!')
             return redirect('/accounts/register')
