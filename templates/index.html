@@ -108,7 +108,7 @@
                                         <div class="service-item d-flex flex-column justify-content-center text-center rounded">
                                             <div class="service-icon btn-square">
 {#                                                <i class="fa fa-robot fa-2x"></i>#}
-                                                <img src="{{ service.image.img.url }}" alt="Service image">
+                                                <img src="{{ service.image.img.url }}" alt="Service image" style="width: 100px !important;">
                                             </div>
                                             <h5 class="mb-3">{{ service.title }}</h5>
                                             <p>{{ service.description }}</p>
@@ -517,46 +517,55 @@
                         <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
                             amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
                             clita duo justo et tempor eirmod magna dolore erat amet</p>
-                        <a class="btn btn-primary rounded-pill px-4" href="">Read More</a>
+                        <a class="btn btn-primary rounded-pill px-4" href="/comment">Read More</a>
                     </div>
                     <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
                         <div class="owl-carousel testimonial-carousel border-start border-primary">
+                            {% for comment in comments %}
                             <div class="testimonial-item ps-5">
                                 <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                                <p class="fs-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
+                                <p class="fs-4">{{ comment.message }}</p>
                                 <div class="d-flex align-items-center">
-                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-1.jpg' %}"
-                                        style="width: 60px; height: 60px;">
-                                    <div class="ps-3">
-                                        <h5 class="mb-1">Client Name</h5>
-                                        <span>Profession</span>
-                                    </div>
+{#                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-1.jpg' %}" style="width: 60px; height: 60px;">#}
+                                    {% if comment.user %}
+                                        <i class="fas fa-user-circle"></i>
+                                        <div class="ps-3">
+                                            <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
+                                            <span>Coder</span>
+                                        </div>
+                                    {% else %}
+                                        <i class="fas fa-user-alt-slash"></i>
+                                        <div class="ps-3">
+                                            <h5 class="mb-1">Anonymous user</h5>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
-                            <div class="testimonial-item ps-5">
-                                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                                <p class="fs-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
-                                <div class="d-flex align-items-center">
-                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-2.jpg' %}"
-                                        style="width: 60px; height: 60px;">
-                                    <div class="ps-3">
-                                        <h5 class="mb-1">Client Name</h5>
-                                        <span>Profession</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial-item ps-5">
-                                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                                <p class="fs-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
-                                <div class="d-flex align-items-center">
-                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-3.jpg' %}"
-                                        style="width: 60px; height: 60px;">
-                                    <div class="ps-3">
-                                        <h5 class="mb-1">Client Name</h5>
-                                        <span>Profession</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+{#                            <div class="testimonial-item ps-5">#}
+{#                                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>#}
+{#                                <p class="fs-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>#}
+{#                                <div class="d-flex align-items-center">#}
+{#                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-2.jpg' %}"#}
+{#                                        style="width: 60px; height: 60px;">#}
+{#                                    <div class="ps-3">#}
+{#                                        <h5 class="mb-1">Client Name</h5>#}
+{#                                        <span>Profession</span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="testimonial-item ps-5">#}
+{#                                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>#}
+{#                                <p class="fs-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>#}
+{#                                <div class="d-flex align-items-center">#}
+{#                                    <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-3.jpg' %}"#}
+{#                                        style="width: 60px; height: 60px;">#}
+{#                                    <div class="ps-3">#}
+{#                                        <h5 class="mb-1">Client Name</h5>#}
+{#                                        <span>Profession</span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
                         </div>
                     </div>
                 </div>
