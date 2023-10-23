@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Login to our system{% endblock %}
+{% load custom_tags %}
+{% block title %}Orders{% endblock %}
 
 {% block css %}
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Ubuntu:wght@500;700&display=swap"
@@ -44,28 +45,50 @@
 
 {% block content %}
     <div class="container">
-        {% if messages %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          {% for message in messages %}
-            {{ message }}
-          {% endfor %}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="row mb-5">
+            <div class="site-blocks-table">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-thumbnail">ID</th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-count">Count</th>
+                    <th class="product-total">Total</th>
+                    <th class="product-time">Created at</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for product in services_data %}
+                  <tr>
+                    <td class="product-id">
+                      <span>{{ product.id }}</span>
+                    </td>
+                    <td class="product-thumbnail">
+                      <img src="{{ product.img.img.url }}" alt="Image" class="img-fluid" style="height: 200px !important;">
+                    </td>
+                    <td class="product-name">
+                      <h2 class="h5 text-black">{{ product.service.title }}</h2>
+                    </td>
+                    <td>${{ product.service.price }}</td>
+                    <td>
+                      <div class="input-group mb-3" style="max-width: 120px;">
+                        <span>{{ product.count }}</span>
+                      </div>
+                    </td>
+                    <td>
+                        <span>${% calculate_total product.count product.service.price %}</span>
+                    </td>
+                  <td>{{ product.created_at }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
         </div>
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-{#            <label for="username">Username</label>#}
-{#            <input class="form-control" type="text" name="username" id="username" placeholder="Username"><br>#}
-{#            <label for="password">Password</label>#}
-{#            <input class="form-control" type="password" name="password" id="password" placeholder="Enter your password"><br>#}
-            {{ form.as_p }}
-            <button type="submit">OK</button>
-            <br/>
-            <span class="text-secondary">Don't have an account yet? <a href="/accounts/register">Sign up</a></span><br>
-            <a href="/accounts/reset-password">Forgot password?</a>
-        </form>
     </div>
-{% endblock %}
+        {% endblock %}
 
 {% block js %}
     <!-- JavaScript Libraries -->
@@ -76,7 +99,9 @@
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
     <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main2.js' %}"></script>
 {% endblock %}

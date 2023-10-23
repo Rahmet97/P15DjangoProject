@@ -37,3 +37,21 @@ class Comment(models.Model):
     message = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Order(models.Model):
+    STATUS = (
+        (1, 'Created'),
+        (2, 'Wait for payment'),
+        (3, 'Paid'),
+        (4, 'Delivering'),
+        (5, 'Completed')
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS)
+
+    def __str__(self):
+        return f'{self.service.title} >>>> {self.status}'

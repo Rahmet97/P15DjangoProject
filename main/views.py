@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http.response import JsonResponse
 
-from .models import Service, Image, ShoppingCart, Comment
+from .models import Service, Image, ShoppingCart, Comment, Order
 
 
 class HomeTemplateView(View):
@@ -177,6 +177,28 @@ class CommentView(View):
         )
         comment.save()
         return redirect('/')
+
+
+class OrderView(View):
+    template_name = 'checkout.html'
+    context = {}
+
+    def get(self, request):
+        services_data = Order.objects.select_related('service').filter(user=request.user)
+        self.context.update({'services_data': services_data})
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        services = ShoppingCart.objects.select_related('service').filter(user=request.user)
+        for service in services:
+            order = Order.objects.create(
+                user=request.user,
+                service=service.service,
+                count=service.count,
+                status=1
+            )
+            order.save()
+        return redirect('/checkout')
 
 
 def about(request):

@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model, hashers, authenticate, login, lo
 from django.contrib import messages
 from django.views import View
 
+from .forms import LoginForm
+
 User = get_user_model()
 
 
@@ -11,19 +13,23 @@ class LoginView(View):
     context = {}
 
     def get(self, request):
+        form = LoginForm()
+        self.context.update({'form': form})
         return render(request, self.template_name, self.context)
 
     def post(self, request):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            return redirect('/')
-        else:
-            messages.error(request, 'Username or password is not valid!')
-            return redirect('/accounts/login')
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, 'Username or password is not valid!')
+        return redirect('/accounts/login')
 
 
 class RegisterView(View):

@@ -100,8 +100,8 @@
               </table>
             </div>
         </div>
-        <form action="" method="post">
-            <input type="hidden" name="user_id" value="{{ user.id }}">
+        <form action="{% url 'checkout' %}" method="post">
+            {% csrf_token %}
             <button type="submit" class="btn btn-primary">Checkout</button>
         </form>
     </div>
